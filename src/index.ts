@@ -54,6 +54,8 @@ const start = async () => {
     deleteSessionDataOnLogout: true,
     qrTimeout: 0,
     authTimeout: 120,
+    logConsole: true,
+    devtools: false,
   })
     .then((client) => bootstrap(client))
     .catch((err) => logWithColor.red(err));
