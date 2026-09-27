@@ -36,7 +36,12 @@ const bootstrap = (client: Client) => {
 };
 
 const start = () => {
-  createWAClient({ useChrome: true, deleteSessionDataOnLogout: true })
+  createWAClient({
+    useChrome: false,
+    executablePath: process.env.CHROME_PATH || "/usr/bin/chromium",
+    headless: true,
+    deleteSessionDataOnLogout: true,
+  })
     .then((client) => bootstrap(client))
     .catch((err) => logWithColor.red(err));
 };
