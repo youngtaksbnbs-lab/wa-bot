@@ -1,10 +1,9 @@
 import "dotenv/config";
-import OpenAI from "openai";
 import axios from "axios";
 import { Client, Message } from "@open-wa/wa-automate";
 import { logWithColor } from "../utils/logger";
 import { sendTextMessage } from "../utils/sender";
-import openaiClient from "../utils/openai";
+import getOpenAiClient from "../utils/openai";
 
 /**
  * Sends request to ChatGPT then returns the response.
@@ -13,7 +12,7 @@ import openaiClient from "../utils/openai";
 const generateImage = async (prompt: string) => {
   // Send request to the Dall-E model API
   try {
-    const response = await openaiClient.images.generate({
+    const response = await getOpenAiClient().images.generate({
       model: "dall-e-2",
       prompt,
       size: "512x512",
