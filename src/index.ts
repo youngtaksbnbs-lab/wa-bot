@@ -52,12 +52,7 @@ const start = async () => {
     executablePath: process.env.CHROME_PATH || "/usr/bin/chromium",
     headless: true,
     deleteSessionDataOnLogout: true,
-    chromiumArgs: [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--disable-gpu",
-    ],
+    qrTimeout: 0,
   })
     .then((client) => bootstrap(client))
     .catch((err) => logWithColor.red(err));
