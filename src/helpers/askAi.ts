@@ -1,10 +1,8 @@
 import "dotenv/config";
-import OpenAI from "openai";
-import axios from "axios";
 import { Client, Message } from "@open-wa/wa-automate";
 import { logWithColor } from "../utils/logger";
 import { sendTextMessage } from "../utils/sender";
-import openaiClient from "../utils/openai";
+import getOpenAiClient from "../utils/openai";
 
 /**
  * Sends request to ChatGPT then returns the response.
@@ -13,7 +11,7 @@ import openaiClient from "../utils/openai";
 const generateChat = async (prompt: string) => {
   // Send request to the ChatGPT model API
   try {
-    const completion = await openaiClient.chat.completions.create({
+    const completion = await getOpenAiClient().chat.completions.create({
       messages: [{ role: "user", content: prompt }],
       model: "gpt-3.5-turbo",
     });
