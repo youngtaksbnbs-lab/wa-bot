@@ -48,7 +48,7 @@ const start = async () => {
   }
 
   createWAClient({
-    useChrome: false,
+    useChrome: true,
     executablePath: process.env.CHROME_PATH || "/usr/bin/chromium",
     headless: true,
     deleteSessionDataOnLogout: true,
