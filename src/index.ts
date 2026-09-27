@@ -41,6 +41,14 @@ const start = () => {
     executablePath: process.env.CHROME_PATH || "/usr/bin/chromium",
     headless: true,
     deleteSessionDataOnLogout: true,
+    puppeteerOptions: {
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+      ],
+    },
   })
     .then((client) => bootstrap(client))
     .catch((err) => logWithColor.red(err));
