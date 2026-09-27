@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   Client,
   Message,
@@ -35,20 +36,28 @@ const bootstrap = (client: Client) => {
   });
 };
 
-const start = () => {
+const start = async () => {
+  // Temporary connectivity check
+  try {
+    const res = await axios.get("https://web.whatsapp.com", {
+      timeout: 10000,
+    });
+    logWithColor.green(`WhatsApp Web reachable, status: ${res.status}`);
+  } catch (err) {
+    logWithColor.red(`WhatsApp Web NOT reachable: ${err}`);
+  }
+
   createWAClient({
     useChrome: false,
     executablePath: process.env.CHROME_PATH || "/usr/bin/chromium",
     headless: true,
     deleteSessionDataOnLogout: true,
-    puppeteerOptions: {
-      args: [
-        "--no-sandbox",
-        "--disable-setuid-sandbox",
-        "--disable-dev-shm-usage",
-        "--disable-gpu",
-      ],
-    },
+    chromiumArgs: [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-gpu",
+    ],
   })
     .then((client) => bootstrap(client))
     .catch((err) => logWithColor.red(err));
