@@ -23,7 +23,7 @@ const generateImage = async (prompt: string) => {
     });
 
     // Return only the generated text
-    return response.data[0].url;
+    return response.data![0].url;
   } catch (error) {
     logWithColor.red(error as unknown as string);
   }
